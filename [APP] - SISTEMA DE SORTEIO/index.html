@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+<!--
+/*
+Feito por Luiz Bruno 
+    LUMATECH https://www.facebook.com/LUMATECHAPPSEGAMES/
+    SCRIPT TUTORIAIS https://scripttutoriais.blogspot.com/
+    HTML CÓDIGOS E TUTORIAIS PT-BR https://www.facebook.com/groups/HTMLCodigoseTutoriaisPTBR/
+    https://www.youtube.com/channel/UC0VcBQlPa9t1dO9z7jGuk5A/ Inscreva-se
+
+    log ++
+    23/01/2021 {COMPLETO}
+    26/01/2021 23:22 + loop com name = nomes1,2,3,4,5,6,7,8,9,10
+*/
+-->
+<html lang="pt-br">
+<head>
+    <title>[APP] - SISTEMA DE SORTEIO</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <meta name="msapplication-TileColor" content="#2196F3">
+    <meta name="theme-color" content="#2196F3">
+</head>
+<body class="w3-padding w3-animate-zoom">
+    <h1 style="text-shadow:1px 0px 3px #000;">Sistema de sorteios</h1>
+    <p class="w3-text-blue" style="text-shadow:1px 0px 0px #000000;">Sorteador de nomes</p>
+    <div class="w3-bar">
+        <a href="#" onclick="document.getElementById('modalAjuda').style.display='block'" class="w3-bar-item w3-button w3-blue">Ajuda</a>
+    </div>
+    <h3>Ultimo ganhador <b id="resultUltimoGanhador"></b></h3>
+    <div class="w3-third w3-container w3-card" id="formNomes">
+        <span onclick="document.getElementById('formNomes').style.display='none'" class="w3-button w3-red w3-round w3-right">&times;</span>
+        <h3>Insira os Nomes:</h3>
+        <div id="formNomesI"></div>
+    </div>
+    <div class="w3-third w3-container w3-card" id="nomeSorteios">
+        <span class="w3-right w3-button w3-red w3-round" onclick="document.getElementById('nomeSorteios').style.display='none'">&times;</span>
+        <button class="w3-button w3-blue w3-round" onclick="sortear()">Sortear</button>
+        
+        <ol id="nomeExibir" class="w3-ul w3-border"><li><h3>Nomes:</h3></li></ol>
+    </div>
+    <div class="w3-third w3-container w3-card w3-animate-top" id="divResultado" style="display: none;">
+        <h3>Gahador(a) <b id="result"></b> Parabéns!</h3>
+        <input type="hidden" value="" id="ultimoGanhador">
+        <button onclick="comecarNovo()" class="w3-blue w3-button w3-round w3-right">Começar de novo</button>
+    </div>
+    <div class="w3-panel w3-blue w3-third">
+        <p>
+            <a href="https://www.facebook.com/LUMATECHAPPSEGAMES/" target="_balnk" title="LUMATECH">LUMATECH APPS E GAMES</a> | 
+            <a href="https://scripttutoriais.blogspot.com/" target="_balnk" title="SCRIPT TUTORIAIS">SCRIPT TUTORIAIS</a> | 
+            <a href="https://www.youtube.com/channel/UC0VcBQlPa9t1dO9z7jGuk5A/" target="_balnk" title="youtube">LUIZ BRUNO</a> - &COPY; Todos os diretos reservados</p>
+    </div>
+    <div id="modalAjuda" class="w3-modal">
+        <div class="w3-modal-content">
+            <div class="w3-container">
+                <span onclick="document.getElementById('modalAjuda').style.display='none'" class="w3-button w3-display-topright w3-red">&times;</span>
+                <p>Bem vindo a ajuda.</p>
+                Primeiro passo
+                <ul>
+                    <li>Insira os nome que você queira sortear</li>
+                    <li>Pressione o botão <button class="w3-button w3-blue w3-round">Add</button> para adicionar ao banco de dados.</li>
+                </ul>
+                Segundo passo
+                <ul>
+                    <li>Clique no botão <button class="w3-button w3-blue w3-round">Sortear</button><p>Não se preucupe ele demora 5 segundos para aleatoriza os nomes.</p></li>
+                </ul>
+                Terceiro passo
+                <ul>
+                    <li>Pronto o nome sorteado irá aparecer, se não aparecer talvez você não escreveu os nomes</li>
+                    <li>Clique no botão <button class="w3-blue w3-button w3-round">Começar de novo</button></li>
+                </ul>
+                <span class="w3-red w3-button w3-round" onclick="limparDados()">Limpar dados</span>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+/*
+Feito por Luiz Bruno 
+    LUMATECH https://www.facebook.com/LUMATECHAPPSEGAMES/
+    SCRIPT TUTORIAIS https://scripttutoriais.blogspot.com/
+    HTML CÓDIGOS E TUTORIAIS PT-BR https://www.facebook.com/groups/HTMLCodigoseTutoriaisPTBR/
+    https://www.youtube.com/channel/UC0VcBQlPa9t1dO9z7jGuk5A/ Inscreva-se
+
+    log ++
+    23/01/2021 {COMPLETO}
+    26/01/2021 23:22 + loop com name = nomes1,2,3,4,5,6,7,8,9,10
+*/
+
+//______________________________Variaveis
+nomesArrayId = ["nome", "nome2", "nome3", "nome4", "nome5", "nome6", "nome7", "nome8", "nome9", "nome10"]
+text = ""
+var i
+
+// Pegando Id
+formNomes = document.getElementById("formNomes")// 
+
+// Pegando Id
+nome = document.getElementById("nome")//
+nome2 = document.getElementById("nome2")//
+nome3 = document.getElementById("nome3")//
+nome4 = document.getElementById("nome4")//
+nome5 = document.getElementById("nome5")//
+nome6 = document.getElementById("nome6")//
+nome7 = document.getElementById("nome7")//
+nome8 = document.getElementById("nome8")//
+nome9 = document.getElementById("nome9")//
+nome10 = document.getElementById("nome10")//
+
+// Pegando Id
+nomeExibir = document.getElementById("nomeExibir")//
+nomeExibir2 = document.getElementById("nomeExibir")//
+nomeExibir3 = document.getElementById("nomeExibir")//
+nomeExibir4 = document.getElementById("nomeExibir")//
+nomeExibir5 = document.getElementById("nomeExibir")//
+nomeExibir6 = document.getElementById("nomeExibir")//
+nomeExibir7 = document.getElementById("nomeExibir")//
+nomeExibir8 = document.getElementById("nomeExibir")//
+nomeExibir9 = document.getElementById("nomeExibir")//
+nomeExibir10 = document.getElementById("nomeExibir")//
+
+// Pegando o nome no localStorage
+localNome = localStorage.getItem("nome")//
+localNome2 = localStorage.getItem("nome2")//
+localNome3 = localStorage.getItem("nome3")//
+localNome4 = localStorage.getItem("nome4")//
+localNome5 = localStorage.getItem("nome5")//
+localNome6 = localStorage.getItem("nome6")//
+localNome7 = localStorage.getItem("nome7")//
+localNome8 = localStorage.getItem("nome8")//
+localNome9 = localStorage.getItem("nome9")//
+localNome10 = localStorage.getItem("nome10")//
+
+// Pegando Id
+ultimoGanhador = document.getElementById("ultimoGanhador")//
+resultUltimoGanhador = document.getElementById("resultUltimoGanhador")// Pegando Id
+
+// Verificando se o campo está vasio
+if(localNome == null && localNome2 == null){
+    setTimeout(function(){document.getElementById("modalAjuda").style.display='block';}, 1000)
+}else if(localStorage.getItem('UltimoGanhador') == null){
+    // Exibindo os nomes a ser sorteados
+    nomeExibir.innerHTML += "<li class='w3-hover-blue'>" + localNome + "</li>"
+    nomeExibir2.innerHTML += "<li class='w3-hover-blue'>" + localNome2 + "</li>"
+    nomeExibir3.innerHTML += "<li class='w3-hover-blue'>" + localNome3 + "</li>"
+    nomeExibir4.innerHTML += "<li class='w3-hover-blue'>" + localNome4 + "</li>"
+    nomeExibir5.innerHTML += "<li class='w3-hover-blue'>" + localNome5 + "</li>"
+    nomeExibir6.innerHTML += "<li class='w3-hover-blue'>" + localNome6 + "</li>"
+    nomeExibir7.innerHTML += "<li class='w3-hover-blue'>" + localNome7 + "</li>"
+    nomeExibir8.innerHTML += "<li class='w3-hover-blue'>" + localNome8 + "</li>"
+    nomeExibir9.innerHTML += "<li class='w3-hover-blue'>" + localNome9 + "</li>"
+    nomeExibir10.innerHTML += "<li class='w3-hover-blue'>" + localNome10 + "</li>"
+}else{
+    // Exibindo os nomes a ser sorteados
+    nomeExibir.innerHTML += "<li class='w3-hover-blue'>" + localNome + "</li>"
+    nomeExibir2.innerHTML += "<li class='w3-hover-blue'>" + localNome2 + "</li>"
+    nomeExibir3.innerHTML += "<li class='w3-hover-blue'>" + localNome3 + "</li>"
+    nomeExibir4.innerHTML += "<li class='w3-hover-blue'>" + localNome4 + "</li>"
+    nomeExibir5.innerHTML += "<li class='w3-hover-blue'>" + localNome5 + "</li>"
+    nomeExibir6.innerHTML += "<li class='w3-hover-blue'>" + localNome6 + "</li>"
+    nomeExibir7.innerHTML += "<li class='w3-hover-blue'>" + localNome7 + "</li>"
+    nomeExibir8.innerHTML += "<li class='w3-hover-blue'>" + localNome8 + "</li>"
+    nomeExibir9.innerHTML += "<li class='w3-hover-blue'>" + localNome9 + "</li>"
+    nomeExibir10.innerHTML += "<li class='w3-hover-blue'>" + localNome10 + "</li>"
+
+    resultUltimoGanhador.innerHTML = localStorage.getItem("UltimoGanhador") + "!"// Imprimi o ultimo ganhador
+}
+
+// Fazendo loop com os input
+for (i = 0; i < nomesArrayId.length; i++) {
+    text += '<input class="w3-input" id="' + nomesArrayId[i] + '" type="text" placeholder="Digite o nome">'
+}
+document.getElementById("formNomesI").innerHTML = text + '<button class="w3-button w3-blue w3-round w3-right" onclick="add()">Add</button>'
+
+// Adicionando os nomes a ser sorteados
+function add(){
+    localStorage.setItem("nome", nome.value)
+    localStorage.setItem("nome2", nome2.value)
+    localStorage.setItem("nome3", nome3.value)
+    localStorage.setItem("nome4", nome4.value)
+    localStorage.setItem("nome5", nome5.value)
+    localStorage.setItem("nome6", nome6.value)
+    localStorage.setItem("nome7", nome7.value)
+    localStorage.setItem("nome8", nome8.value)
+    localStorage.setItem("nome9", nome9.value)
+    localStorage.setItem("nome10", nome10.value)
+    window.location.reload("index.html")
+    //setTimeout(function(){ window.location.href='index.html'; }, 3000);
+}
+
+// Gerenciando o sorteio
+get_random = function(lista){
+    return lista[Math.floor((Math.random()*lista.length))];
+} 
+
+// Sorteando o nomes da lista
+Sortudo = get_random([localNome,localNome2,localNome3,localNome4,localNome5,localNome6,localNome7,localNome8,localNome9,localNome9])
+
+// Sorteado os nomes da lista
+function sortear(){
+    document.getElementById("result").innerHTML = Sortudo // Imprimindo o sortudo
+    ultimoGanhador.value = Sortudo
+    setTimeout(function(){document.getElementById("divResultado").style.display='block';}, 5000) // Leitura de 5 Segundos
+}
+
+// Começa um novo sorteio
+function comecarNovo(){
+    localStorage.setItem("UltimoGanhador", ultimoGanhador.value)
+    window.location.href='index.html'
+}
+
+// Limpando dados do localStorage
+function limparDados(){
+    window.alert("Atenção você está preste a limpar todos os dados do sorteio.\n(Serão apagados Nomes, lista e ultimo sorteado)")
+    if(confirm("Deseja limpar todos os dados do sorteio?")){
+        localStorage.clear()
+        window.location.href='index.html'
+    }else{
+        window.location.href='index.html'
+    }
+}
+</script>
+</html>
